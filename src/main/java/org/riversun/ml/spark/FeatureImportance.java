@@ -23,6 +23,25 @@ import org.apache.spark.sql.types.StructType;
 
 /**
  * Helper to associate column name and feature importance
+ *
+ * Code example
+ * <code>
+ // Get model from pipeline stage
+GBTRegressionModel gbtModel = (GBTRegressionModel) (pipelineModel.stages()[stageIndex]);
+
+// Do prediction
+Dataset<Row> predictions = pipelineModel.transform(testData);
+
+// Get schema from result DataSet
+StructType schema = predictions.schema();
+
+// Get sorted feature importances with column name
+List<Importance> importanceList =
+       new FeatureImportance.Builder(gbtModel, schema)
+         .sort(Order.DESCENDING)
+         .build()
+         .getResult();
+ * </code>
  * 
  * @author Tom Misawa (riversun.org@gmail.com)
  *
@@ -133,8 +152,10 @@ public class FeatureImportance {
 
         final StructField featuresField = schema.fields()[indexOfFeaturesCol];
 
-        final Metadata featuresFieldAttrs = featuresField
-                .metadata()
+        final Metadata metadata = featuresField
+                .metadata();
+
+        final Metadata featuresFieldAttrs = metadata
                 .getMetadata("ml_attr")
                 .getMetadata("attrs");
 
@@ -144,8 +165,8 @@ public class FeatureImportance {
 
         final Collector<Metadata, ?, HashMap<Integer, String>> metaDataMapperFunc = Collectors
                 .toMap(
-                        metaData -> (int) metaData.getLong("idx"),
-                        metaData -> metaData.getString("name"),
+                        metaData -> (int) metaData.getLong("idx"), // key of map
+                        metaData -> metaData.getString("name"), // value of map
                         (oldVal, newVal) -> newVal,
                         HashMap::new);
 
