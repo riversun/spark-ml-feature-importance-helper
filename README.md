@@ -6,7 +6,20 @@ Library that can obtain feature importance of tree model prediction or classific
 
 It is licensed under [MIT](https://opensource.org/licenses/MIT).
 
+
 # How to use
+
+## Maven
+
+```xml
+<dependency>
+	<groupId>org.riversun</groupId>
+	<artifactId>spark-ml-feature-importance-helper</artifactId>
+	<version>1.0.0</version>
+</dependency>
+```
+
+## Example
 
 You can use this library from Java.
 
