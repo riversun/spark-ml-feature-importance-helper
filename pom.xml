@@ -3,7 +3,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.example</groupId>
+	<groupId>org.riversun</groupId>
 	<artifactId>spark-ml-feature-importance-helper</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
@@ -131,7 +131,7 @@
 				</executions>
 				<configuration>
 					<author>true</author>
-					<source>1.7</source>
+					<source>1.8</source>
 					<show>protected</show>
 					<encoding>UTF-8</encoding>
 					<charset>UTF-8</charset>
